@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anne-Sophie Vere | Développeuse Fullstack Freelance</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/processing.js/1.6.6/processing.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;700&family=Inter:wght@400;500&display=swap">
+    <style>
+        :root {
+            --dark-bg: #0F172A;
+            --cta: #4117e9;
+            --text: #FFFFFF;
+            --accent: #818CF8;
+            --card-bg: rgba(15, 23, 42, 0.7);
+            
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+        .position{
+            display: flex;
+            margin-top: 5%;
+        }
+
+        .hiddenCat{
+            position: relative;
+            z-index: 0;
+            margin: 2%;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 10%;
+            position: relative;
+            overflow: hidden;
+            z-index: 45;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><text x="10" y="50" font-family="monospace" font-size="14" fill="rgba(129,140,248,0.05)">const code = "creative";</text></svg>');
+            opacity: 0.1;
+            z-index: -1;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin: 0;
+            color: var(--text);
+        }
+
+        .hero h2 {
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            margin: 20px 0;
+            font-weight: 400;
+            color: var(--accent);
+        }
+
+        .cta-button {
+            display: inline-block;
+            width: 40%;
+            
+            padding: 15px 30px;
+            background: var(--cta);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 1.1rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            margin-top: 30px;
+            font-weight: 500;
+            box-shadow: 0 4px 14px rgba(59, 13, 243, 0.4);
+        }
+
+        .cta-button:hover {
+            background: #2A0AC7;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(59, 13, 243, 0.6);
+        }
+
+        /* Expertise Section */
+        .section {
+            padding: 100px 10%;
+            position: relative;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            color: var(--text);
+            margin-bottom: 60px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 70%;
+            height: 2px;
+            background: var(--accent);
+        }
+
+        .expertise-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .expertise-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(129, 140, 248, 0.1);
+            border-radius: 8px;
+            padding: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .expertise-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent);
+            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.5);
+        }
+
+        .expertise-card h3 {
+            color: var(--accent);
+            font-size: 1.5rem;
+            margin-top: 20px;
+        }
+
+        .expertise-card p {
+            color: var(--text);
+            opacity: 0.9;
+        }
+
+        .tech-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: var(--accent);
+        }
+
+        /* Projects Section */
+        .projects-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            padding: 20px 0;
+        }
+
+        .more-project{
+            display: none;
+        }
+
+        
+        .projects-container.hidden {
+            display: none;
+        }
+        
+        .projects-container.visible {
+            display: flex;
+        }
+        .project-card {
+            width: 45%;
+            scroll-snap-align: start;
+            background: var(--card-bg);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(129, 140, 248, 0.1);
+        }
+        .project-card-mini {
+            
+            width: 40%;
+            scroll-snap-align: start;
+            background: var(--card-bg);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(129, 140, 248, 0.1);
+        }
+
+        .project-image {
+            height: 200px;
+            background: linear-gradient(135deg, #1E293B 0%, #0F172A 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        .project-details {
+            padding: 20px;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .tag {
+            background: rgba(59, 13, 243, 0.1);
+            color: var(--accent);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            border: 1px solid rgba(129, 140, 248, 0.2);
+        }
+        .tech-stack {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .tech-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 15px;
+            background: rgba(30, 41, 59, 0.5);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .tech-item:hover {
+            transform: translateY(-5px);
+            background: rgba(59, 13, 243, 0.1);
+            box-shadow: 0 5px 15px rgba(59, 13, 243, 0.2);
+        }
+
+        .tech-icon-img {
+            width: 40px;
+            height: 40px;
+            margin-bottom: 10px;
+            object-fit: contain;
+        }
+
+        .tech-category {
+            font-size: 1.8rem;
+            color: var(--accent);
+            margin: 60px 0 20px 0;
+            font-weight: 700;
+        }
+
+        .tech-category:first-child {
+            margin-top: 0;
+        }
+
+        /* Process Section */
+        .process-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            position: relative;
+            margin-left: 30px;
+        }
+
+        .process-steps::before {
+            content: "";
+            position: absolute;
+            left: -30px;
+            top: 0;
+            height: 100%;
+            width: 2px;
+            background: var(--accent);
+        }
+
+        .process-step {
+            position: relative;
+            padding-left: 40px;
+        }
+
+        .process-step::before {
+            content: "";
+            position: absolute;
+            left: -38px;
+            top: 5px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--dark-bg);
+            border: 2px solid var(--accent);
+        }
+
+        /* Contact Section */
+        #contact form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            max-width: 600px;
+        }
+
+        #contact input,
+        #contact textarea {
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid rgba(129, 140, 248, 0.2);
+            border-radius: 4px;
+            padding: 12px 15px;
+            color: white;
+            font-family: 'Inter', sans-serif;
+        }
+
+        #contact textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero, .section {
+                padding: 40px 5%;
+            }
+            
+           
+            .hiddenCat{
+                display: none;
+              
+            }
+            .expertise-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-button{
+                width: auto;
+            }
+            
+            .project-card {
+                min-width: 90%;
+            }
+            .project-card-mini {
+            
+            width: 90%;
+            
+        }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="position">
+        <section class="hero">
+            <h1>Hello there,</h1>
+            <h1>I'm Anne-Sophie Vere</h1>
+            <h2>Fullstack dev | Freelance</h2>
+            <h3>I do stuff on the web and it turns out great :)</h3>
+            <p>Let me  transform your ideas in digital and safe solutions </p>
+            <a href="#contact" class="cta-button">Let's discuss your project →</a>
+        </section>
+        <div class="hiddenCat">
+            <canvas data-processing-sources="processing.pde"></canvas>
+        </div>
+    </div>
+      
+
+
+    <section class="section">
+        <h2 class="section-title">My stack</h2>
+        <h3 class="tech-category">Frontend</h3>
+        <div class="tech-stack">
+            <div class="tech-item">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/angularjs/angularjs-original.svg" class="tech-icon-img" alt="Angular">
+                <span>Angular</span>
+            </div>
+            <div class="tech-item">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" class="tech-icon-img" alt="React Native">
+                <span>React Native</span>
+            </div>
+            <div class="tech-item">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" class="tech-icon-img" alt="TypeScript">
+                <span>TypeScript</span>
+            </div>
+            
+            <div class="tech-item">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" class="tech-icon-img" alt="JavaScript">
+                <span>JavaScript</span>
+            </div>
+        </div>
+
+        <h3 class="tech-category">Backend</h3>
+        <div class="tech-stack">
+            <div class="tech-item">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" class="tech-icon-img" alt="Java">
+                <span>Java</span>
+            </div>
+            <div class="tech-item">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg" class="tech-icon-img" alt="Spring Boot">
+                <span>Spring Boot</span>
+            </div>
+            <div class="tech-item">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/symfony/symfony-original.svg" class="tech-icon-img" alt="Symfony">
+                <span>Symfony</span>
+            </div>
+        </div>
+
+        <h3 class="tech-category">DevOps & Outils</h3>
+        <div class="tech-stack">
+            <div class="tech-item">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/gitlab/gitlab-original.svg" class="tech-icon-img" alt="GitLab">
+                <span>GitLab</span>
+            </div>
+            <div class="tech-item">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sonarqube/sonarqube-original.svg" class="tech-icon-img" alt="SonarQube">
+                <span>SonarQube</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Expertise Section -->
+    <section class="section">
+        <h2 class="section-title">Expertises</h2>
+        <div class="expertise-grid">
+            <div class="expertise-card">
+                <div class="tech-icon">🛠️</div>
+                <h3>Solid Backend </h3>
+                <p>API robustes • Microservices • Optimisation BDD • Java Spring Boot • PHP Symfony</p>
+            </div>
+            <div class="expertise-card">
+                <div class="tech-icon">🎨</div>
+                <h3>Creative & Clean Frontend </h3>
+                <p>Dynamic interfaces • UX/ UI • Angular/React • JavaScript/TypeScript</p>
+            </div>
+            <div class="expertise-card">
+                <div class="tech-icon">⚙️</div>
+                <h3>DevOps </h3>
+                <p>CI/CD • Tests • GitLab</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="section">
+        <h2 class="section-title">My Finest Work</h2>
+        <div class="projects-container">
+            <div class="project-card">
+                <div class="project-image">[Capture Plateforme Processus]</div>
+                <div class="project-details">
+                    <h3>DaProcess - Plateforme de gestion des processus</h3>
+                    <div class="project-tags">
+                        <span class="tag">Java</span>
+                        <span class="tag">Spring Boot</span>
+                        <span class="tag">Angular</span>
+                        <span class="tag">Bootstrap</span>
+                        <span class="tag">MariaDB</span>
+                    </div>
+                    <p>Application web complète pour cartographier et optimiser les processus métiers.</p>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-image">[Capture App Homey]</div>
+                <div class="project-details">
+                    <h3>App Homey Hitachi AirCloud Go</h3>
+                    <div class="project-tags">
+                        <span class="tag">Homey</span>
+                        <span class="tag">Javascript</span>
+                        <span class="tag">Domotique</span>
+                    </div>
+                    <p>App Homey pour controler son installation Hitachi à distance.</p>
+                </div>
+            </div>
+            <button  id="toggleProjects"
+            class="cta-button" >Show all my projects </button>
+            <div id="projectsContainer" class="projects-container hidden more-project">
+                <div class="project-card-mini">
+                    <div class="project-image">[Capture Marketplace]</div>
+                    <div class="project-details">
+                        <h3>Imagin'ères - Marketplace E-commerce</h3>
+                        <div class="project-tags">
+                            <span class="tag">PHP</span>
+                            <span class="tag">Symfony</span>
+                            <span class="tag">JavaScript</span>
+                            <span class="tag">Angular</span>
+                        </div>
+                        <p>Plateforme de vente en ligne avec système de paiement et gestion de stocks.</p>
+                    </div>
+                </div>
+                <div class="project-card-mini">
+                    <div class="project-image">[Capture Marketplace]</div>
+                    <div class="project-details">
+                        <h3>Mairie de Saverdun - Refonte </h3>
+                        <div class="project-tags">
+                            <span class="tag">PHP</span>
+                            <span class="tag">Symfony</span>
+                            <span class="tag">JavaScript</span>
+                            <span class="tag">Twig</span>
+                        </div>
+                        <p>Refonte du site de la mairie de Saverdun avec un espace d'administration intégré</p>
+                    </div>
+                </div>
+                <div class="project-card-mini">
+                    <div class="project-image">[Capture App real estate]</div>
+                    <div class="project-details">
+                        <h3>App mobile de location de biens immobilier</h3>
+                        <div class="project-tags">
+                            <span class="tag">React Native</span>
+                            <span class="tag">TypeScript</span>
+                            <span class="tag">JavaScript</span>
+                            <span class="tag">Tailwind</span>
+                            <span class="tag">Appwrite</span>
+                        </div>
+                        <p>Plateforme pour louer des biens immobiliers et contacter des agents.</p>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="section">
+        <h2 class="section-title">My workflow</h2>
+        <div class="process-steps">
+            <div class="process-step">
+                <h3>📝 Audit & Specifications</h3>
+                <p>In-depth analysis of your needs and  technical specifications.</p>
+            </div>
+            <div class="process-step">
+                <h3>🖥️ UI UX work</h3>
+                <p>Creation of interactive models to validate the user experience.</p>
+            </div>
+            <div class="process-step">
+                <h3>🔁 Iterative development</h3>
+                <p>Implementation with regular deliveries for gradual adjustments.</p>
+            </div>
+            <div class="process-step">
+                <h3>🚀 Délivery & Training</h3>
+                <p>Final deployment and training of your teams for complete autonomy.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+        <h2 class="section-title">Let's work together</h2>
+        <form>
+            <input type="text" placeholder="Votre nom" required>
+            <input type="email" placeholder="Votre email" required>
+            <textarea placeholder="Décrivez votre projet..." rows="5" required></textarea>
+            <button type="submit" class="cta-button">Send</button>
+        </form>
+        <p style="margin-top: 20px;">Or contact me : vereannesophie@gmail.com</p>
+    </section>
+
+    <script>
+         document.addEventListener('DOMContentLoaded', function() {
+            const toggleButton = document.getElementById('toggleProjects');
+            const projectsContainer = document.getElementById('projectsContainer');
+            
+            toggleButton.addEventListener('click', function() {
+                if (projectsContainer.classList.contains('hidden')) {
+                    // Afficher les projets
+                    projectsContainer.classList.remove('hidden');
+                    projectsContainer.classList.add('visible');
+                    toggleButton.classList.remove('collapsed');
+                    toggleButton.classList.add('expanded');
+                    toggleButton.querySelector('span').textContent = 'Masquer les projets';
+                } else {
+                    // Masquer les projets
+                    projectsContainer.classList.remove('visible');
+                    projectsContainer.classList.add('hidden');
+                    toggleButton.classList.remove('expanded');
+                    toggleButton.classList.add('collapsed');
+                    toggleButton.querySelector('span').textContent = 'Afficher tous mes projets';
+                }
+            });
+        })
+        
+        
+        document.querySelectorAll('.expertise-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.querySelector('.tech-icon').style.transform = 'rotate(10deg) scale(1.1)';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.querySelector('.tech-icon').style.transform = 'rotate(0) scale(1)';
+            });
+        });
+
+
+        console.log('%cWelcome to my page! 👋', 'color: #818CF8; font-size: 16px;');
+        console.log('%cSearching a talented dev ? Contact me', 'color: #FFFFFF;');
+
+        console.log('%cPS: Have you seen my cat ? Last time I saw her, she was checking my computer...', 'color: #818CF8; font-size: 13px;');
+    </script>
+</body>
+</html>
