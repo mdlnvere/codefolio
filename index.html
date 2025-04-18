@@ -26,13 +26,15 @@
         }
         .position{
             display: flex;
-            margin-top: 5%;
+         
         }
 
         .hiddenCat{
             position: relative;
             z-index: 0;
-            margin: 2%;
+            padding-top: 2%;
+            margin: 5%;
+           
         }
 
         /* Hero Section */
@@ -169,22 +171,7 @@
         }
 
         
-        .projects-container.hidden {
-            display: none;
-        }
         
-        .projects-container.visible {
-            display: flex;
-        }
-        .project-card {
-            width: 45%;
-            scroll-snap-align: start;
-            background: var(--card-bg);
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            border: 1px solid rgba(129, 140, 248, 0.1);
-        }
         .project-card-mini {
             
             width: 40%;
@@ -196,26 +183,7 @@
             border: 1px solid rgba(129, 140, 248, 0.1);
         }
 
-        .project-image {
-            height: 200px;
-            background: linear-gradient(135deg, #1E293B 0%, #0F172A 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--accent);
-            font-weight: bold;
-        }
-
-        .project-details {
-            padding: 20px;
-        }
-
-        .project-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin: 15px 0;
-        }
+        
 
         .tag {
             background: rgba(59, 13, 243, 0.1);
@@ -324,6 +292,109 @@
             min-height: 120px;
             resize: vertical;
         }
+        
+         /* Nouvelle section GitHub-like */
+         .github-profile {
+            background: var(--github-dark);
+            border: 1px solid var(--github-border);
+            border-radius: 6px;
+            margin: -50px 10% 80px;
+            padding: 20px;
+            position: relative;
+            z-index: 2;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        .profile-tabs {
+            display: flex;
+            border-bottom: 1px solid var(--github-border);
+            margin-bottom: 20px;
+        }
+
+        .tab {
+            padding: 8px 16px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: var(--text);
+            opacity: 0.7;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s ease;
+        }
+
+        .tab.active {
+            opacity: 1;
+            border-bottom-color: var(--cta);
+            font-weight: 500;
+        }
+
+        .tab:hover {
+            opacity: 1;
+            background-color: rgba(110, 118, 129, 0.1);
+        }
+
+        .profile-content {
+            display: none;
+        }
+
+        .profile-content.active {
+            display: block;
+        }
+
+        .tech-stack-compact {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 12px;
+        }
+
+        .tech-item-compact {
+            display: flex;
+            align-items: center;
+            padding: 8px 12px;
+            background: var(--github-highlight);
+            border-radius: 6px;
+            font-size: 0.9rem;
+        }
+
+        .tech-item-compact img {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .stat-card {
+            background: var(--github-highlight);
+            border: 1px solid var(--github-border);
+            border-radius: 6px;
+            padding: 15px;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+
+        @media (max-width: 768px) {
+            .github-profile {
+                margin: -30px 5% 50px;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
 
         /* Responsive */
         @media (max-width: 768px) {
@@ -344,20 +415,210 @@
                 width: auto;
             }
             
-            .project-card {
-                min-width: 90%;
-            }
+           
             .project-card-mini {
             
             width: 90%;
             
         }
         }
+         /* Conteneur principal du carrousel */
+    .projects-section {
+        position: relative;
+        padding: 0 5%;
+        margin: 60px 0;
+    }
+
+    /* Conteneur du carrousel avec masquage du débordement */
+    .carousel-container {
+        position: relative;
+        overflow: hidden;
+        width: 100%;
+        padding: 20px 0;
+    }
+
+    /* Conteneur interne des cartes (élément qui se déplace) */
+    .carousel-inner {
+        display: flex;
+        transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        gap: 30px;
+        width: max-content; /* Permet le défilement horizontal */
+        will-change: transform; /* Optimisation des performances */
+    }
+
+    /* Style des cartes de projet */
+    .project-card {
+        flex: 0 0 300px; /* Largeur fixe pour chaque carte */
+        background: var(--card-bg);
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+        border: 1px solid rgba(129, 140, 248, 0.1);
+    }
+
+    .project-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        border-color: var(--accent);
+    }
+
+    /* Image du projet */
+    .project-image {
+        height: 180px;
+        background: linear-gradient(135deg, #1E293B 0%, #0F172A 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--accent);
+        font-weight: bold;
+    }
+
+    .imagineres{
+        height: 180px;
+        background-image: url("assets/imagineres.png");
+ 
+        background-position: center;
+        background-size: cover;
+    }
+    .realestate{
+        height: 180px;
+        background-image: url("assets/homepage.jpeg");
+        background-position: top;
+        background-size: cover;
+
+
+    }
+    .saverdun{
+        height: 180px;
+        background-image: url("assets/saverdun.png");
+        background-position: center;
+        background-size: cover;
+    }
+
+    /* Détails du projet */
+    .project-details {
+        padding: 20px;
+    }
+
+    .project-details h3 {
+        margin: 0 0 10px 0;
+        color: var(--text);
+        font-size: 1.2rem;
+    }
+
+    /* Tags technologies */
+    .project-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 15px;
+    }
+
+    .tag {
+        background: rgba(59, 13, 243, 0.1);
+        color: var(--accent);
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        border: 1px solid rgba(129, 140, 248, 0.2);
+    }
+
+    /* Boutons de navigation */
+    .carousel-nav {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 40px;
+        height: 40px;
+        background: var(--cta);
+        border: none;
+        border-radius: 50%;
+        color: white;
+        font-size: 1rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+        opacity: 0.9;
+    }
+
+    .carousel-nav:hover {
+        opacity: 1;
+        transform: translateY(-50%) scale(1.1);
+        background: #2A0AC7;
+    }
+
+    .carousel-nav:disabled {
+        opacity: 0.3;
+        cursor: not-allowed;
+        transform: translateY(-50%);
+    }
+
+    .carousel-nav.prev {
+        left: 10px;
+    }
+
+    .carousel-nav.next {
+        right: 10px;
+    }
+
+    /* Indicateurs de position (optionnel) */
+    .carousel-indicators {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        margin-top: 20px;
+    }
+
+    .indicator {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--github-border);
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .indicator.active {
+        background: var(--cta);
+        transform: scale(1.2);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+        
+    }
+
+    @media (max-width: 768px) {
+        .projects-section {
+            padding: 0 3%;
+        }
+
+      
+
+        .carousel-nav {
+            width: 35px;
+            height: 35px;
+        }
+
+        .carousel-nav.prev {
+            left: 15px;
+        }
+
+        .carousel-nav.next {
+            right: 15px;
+        }
+    }
+
+ 
     </style>
 </head>
 <body>
 
-    <div class="position">
         <section class="hero">
             <h1>Hello there,</h1>
             <h1>I'm Anne-Sophie Vere</h1>
@@ -366,12 +627,71 @@
             <p>Let me  transform your ideas in digital and safe solutions </p>
             <a href="#contact" class="cta-button">Let's discuss your project →</a>
         </section>
-        <div class="hiddenCat">
-            <canvas data-processing-sources="processing.pde"></canvas>
-        </div>
-    </div>
+        
+
       
 
+            <!-- Nouvelle section GitHub-like -->
+    <section class="github-profile">
+        <div class="profile-tabs">
+            <div class="tab active" data-tab="contact">About me </div>
+            <div class="tab" data-tab="stats">Stats</div>
+            <div class="tab" data-tab="projects">Recent projects</div>
+        </div>
+
+        <div id="contact" class="profile-content active">
+            <h3 style="margin-top: 0; color: var(--accent);">My links</h3>
+         
+        </div>
+
+        <div id="stats" class="profile-content">
+            <h3 style="margin-top: 0; color: var(--accent);">Mes Statistiques</h3>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value">1+</div>
+                    <div class="stat-label">Années d'expérience</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">5+</div>
+                    <div class="stat-label">Projets réalisés</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">100%</div>
+                    <div class="stat-label">Clients satisfaits</div>
+                </div>
+            </div>
+        </div>
+
+        <div id="projects" class="profile-content">
+            <h3 style="margin-top: 0; color: var(--accent);">Derniers Projets</h3>
+            <div style="display: flex; gap: 15px; overflow-x: auto; padding-bottom: 10px;">
+                <div style="min-width: 200px; background: var(--github-highlight); border-radius: 6px; padding: 15px; border: 1px solid var(--github-border);">
+                    <div style="font-weight: 500; margin-bottom: 8px;">Plateforme Processus</div>
+                    <div style="display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 10px;">
+                        <span style="font-size: 0.7rem; background: rgba(59, 13, 243, 0.1); color: var(--accent); padding: 2px 8px; border-radius: 20px;">Java</span>
+                        <span style="font-size: 0.7rem; background: rgba(59, 13, 243, 0.1); color: var(--accent); padding: 2px 8px; border-radius: 20px;">Angular</span>
+                    </div>
+                    <div style="font-size: 0.8rem; opacity: 0.8;">Gestion des processus métiers</div>
+                </div>
+                <div style="min-width: 200px; background: var(--github-highlight); border-radius: 6px; padding: 15px; border: 1px solid var(--github-border);">
+                    <div style="font-weight: 500; margin-bottom: 8px;">App Mobile</div>
+                    <div style="display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 10px;">
+                        <span style="font-size: 0.7rem; background: rgba(59, 13, 243, 0.1); color: var(--accent); padding: 2px 8px; border-radius: 20px;">React Native</span>
+                        <span style="font-size: 0.7rem; background: rgba(59, 13, 243, 0.1); color: var(--accent); padding: 2px 8px; border-radius: 20px;">Firebase</span>
+                    </div>
+                    <div style="font-size: 0.8rem; opacity: 0.8;">Application cross-platform</div>
+                </div>
+                <div style="min-width: 200px; background: var(--github-highlight); border-radius: 6px; padding: 15px; border: 1px solid var(--github-border);">
+                    <div style="font-weight: 500; margin-bottom: 8px;">App </div>
+                    <div style="display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 10px;">
+                        <span style="font-size: 0.7rem; background: rgba(59, 13, 243, 0.1); color: var(--accent); padding: 2px 8px; border-radius: 20px;">React Native</span>
+                        <span style="font-size: 0.7rem; background: rgba(59, 13, 243, 0.1); color: var(--accent); padding: 2px 8px; border-radius: 20px;">Firebase</span>
+                    </div>
+                    <div style="font-size: 0.8rem; opacity: 0.8;">Application cross-platform</div>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <section class="section">
         <h2 class="section-title">My stack</h2>
@@ -412,7 +732,7 @@
             </div>
         </div>
 
-        <h3 class="tech-category">DevOps & Outils</h3>
+        <h3 class="tech-category">DevOps & Tools</h3>
         <div class="tech-stack">
             <div class="tech-item">
                 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/gitlab/gitlab-original.svg" class="tech-icon-img" alt="GitLab">
@@ -446,82 +766,74 @@
             </div>
         </div>
     </section>
-
-    <!-- Projects Section -->
-    <section class="section">
-        <h2 class="section-title">My Finest Work</h2>
-        <div class="projects-container">
-            <div class="project-card">
-                <div class="project-image">[Capture Plateforme Processus]</div>
-                <div class="project-details">
-                    <h3>DaProcess - Plateforme de gestion des processus</h3>
-                    <div class="project-tags">
-                        <span class="tag">Java</span>
-                        <span class="tag">Spring Boot</span>
-                        <span class="tag">Angular</span>
-                        <span class="tag">Bootstrap</span>
-                        <span class="tag">MariaDB</span>
-                    </div>
-                    <p>Application web complète pour cartographier et optimiser les processus métiers.</p>
-                </div>
-            </div>
-            <div class="project-card">
-                <div class="project-image">[Capture App Homey]</div>
-                <div class="project-details">
-                    <h3>App Homey Hitachi AirCloud Go</h3>
-                    <div class="project-tags">
-                        <span class="tag">Homey</span>
-                        <span class="tag">Javascript</span>
-                        <span class="tag">Domotique</span>
-                    </div>
-                    <p>App Homey pour controler son installation Hitachi à distance.</p>
-                </div>
-            </div>
-            <button  id="toggleProjects"
-            class="cta-button" >Show all my projects </button>
-            <div id="projectsContainer" class="projects-container hidden more-project">
-                <div class="project-card-mini">
-                    <div class="project-image">[Capture Marketplace]</div>
-                    <div class="project-details">
-                        <h3>Imagin'ères - Marketplace E-commerce</h3>
-                        <div class="project-tags">
-                            <span class="tag">PHP</span>
-                            <span class="tag">Symfony</span>
-                            <span class="tag">JavaScript</span>
-                            <span class="tag">Angular</span>
-                        </div>
-                        <p>Plateforme de vente en ligne avec système de paiement et gestion de stocks.</p>
-                    </div>
-                </div>
-                <div class="project-card-mini">
-                    <div class="project-image">[Capture Marketplace]</div>
-                    <div class="project-details">
-                        <h3>Mairie de Saverdun - Refonte </h3>
-                        <div class="project-tags">
-                            <span class="tag">PHP</span>
-                            <span class="tag">Symfony</span>
-                            <span class="tag">JavaScript</span>
-                            <span class="tag">Twig</span>
-                        </div>
-                        <p>Refonte du site de la mairie de Saverdun avec un espace d'administration intégré</p>
-                    </div>
-                </div>
-                <div class="project-card-mini">
-                    <div class="project-image">[Capture App real estate]</div>
-                    <div class="project-details">
-                        <h3>App mobile de location de biens immobilier</h3>
-                        <div class="project-tags">
-                            <span class="tag">React Native</span>
-                            <span class="tag">TypeScript</span>
-                            <span class="tag">JavaScript</span>
-                            <span class="tag">Tailwind</span>
-                            <span class="tag">Appwrite</span>
-                        </div>
-                        <p>Plateforme pour louer des biens immobiliers et contacter des agents.</p>
-                    </div>
-                </div>
-            </div>
+    <section class="section projects-section">
+        <h2 class="section-title">My Finest work</h2>
+        
+        <div class="carousel-container">
+            <button class="carousel-nav prev">←</button>
             
+            <div class="projects-carousel">
+                <div class="carousel-inner" id="carouselInner">
+                    <div class="project-card">
+                        <div class="project-image">DaProcess</div>
+                        <div class="project-details">
+                            <h3>DaProcess</h3>
+                            <div class="project-tags">
+                                <span class="tag">Java</span>
+                                <span class="tag">SpringBoot</span>
+                                <span class="tag">Angular</span>
+                            </div>
+                            <p>Plateforme de gestion de processus métiers</p>
+                        </div>
+                    </div>
+                    
+                    <div class="project-card">
+                        <div class="project-image">Homey Aircloud Go</div>
+                        <div class="project-details">
+                            <h3>Homey Aircloud Go</h3>
+                            <div class="project-tags">
+                                <span class="tag">Javascript</span>
+                                <span class="tag">Homey</span>
+                                <span class="tag">REST</span>
+                                <span class="tag">Websocket</span>
+                                <span class="tag">Domotique</span>
+                            </div>
+                            <p>Domotique : application Homey pour gérer son installation Hitachi à distance </p>
+                        </div>
+                    </div>
+                    
+                    <div class="project-card">
+                        <div class="project-image realestate"></div>
+                        <div class="project-details">
+                            <h3>RealEstate - Location de biens immobiliers</h3>
+                            <div class="project-tags">
+                                <span class="tag">React Native</span>
+                                <span class="tag">Appwrite</span>
+                                <span class="tag">Tailwind</span>
+                            </div>
+                            <p>Plateforme mobile pour louer des biens immobiliers</p>
+                        </div>
+                    </div>
+                    
+                    <div class="project-card">
+                        <div class="project-image saverdun"></div>
+                        <div class="project-details">
+                            <h3>Site de la mairie de Saverdun</h3>
+                            <div class="project-tags">
+                                <span class="tag">PHP</span>
+                                <span class="tag">Symfony</span>
+                                <span class="tag">Twig</span>
+                            </div>
+                            <p>Refonte du site de la mairie de Saverdun</p>
+                        </div>
+                    </div>
+                   
+                </div>
+            </div>
+            <button class="carousel-nav next" aria-label="Projets suivants">→</button>
+        </div>
+        <div class="carousel-indicators" id="carouselIndicators">
+            <!-- Généré dynamiquement en JS -->
         </div>
     </section>
 
@@ -549,8 +861,10 @@
     </section>
 
     <!-- Contact Section -->
+    <div class="position">
+
     <section id="contact" class="section">
-        <h2 class="section-title">Let's work together</h2>
+        <h2 class="section-title">Let's work together !</h2>
         <form>
             <input type="text" placeholder="Votre nom" required>
             <input type="email" placeholder="Votre email" required>
@@ -560,45 +874,84 @@
         <p style="margin-top: 20px;">Or contact me : vereannesophie@gmail.com</p>
     </section>
 
+    <div class="hiddenCat">
+        <canvas data-processing-sources="processing.pde"></canvas>
+    </div>
+    </div>
     <script>
-         document.addEventListener('DOMContentLoaded', function() {
-            const toggleButton = document.getElementById('toggleProjects');
-            const projectsContainer = document.getElementById('projectsContainer');
+          document.addEventListener('DOMContentLoaded', function() {
+            const tabs = document.querySelectorAll('.tab');
             
-            toggleButton.addEventListener('click', function() {
-                if (projectsContainer.classList.contains('hidden')) {
-                    // Afficher les projets
-                    projectsContainer.classList.remove('hidden');
-                    projectsContainer.classList.add('visible');
-                    toggleButton.classList.remove('collapsed');
-                    toggleButton.classList.add('expanded');
-                    toggleButton.querySelector('span').textContent = 'Masquer les projets';
-                } else {
-                    // Masquer les projets
-                    projectsContainer.classList.remove('visible');
-                    projectsContainer.classList.add('hidden');
-                    toggleButton.classList.remove('expanded');
-                    toggleButton.classList.add('collapsed');
-                    toggleButton.querySelector('span').textContent = 'Afficher tous mes projets';
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    // Désactiver tous les onglets et contenus
+                    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                    document.querySelectorAll('.profile-content').forEach(c => c.classList.remove('active'));
+                    
+                    // Activer l'onglet cliqué
+                    this.classList.add('active');
+                    const tabId = this.getAttribute('data-tab');
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+            
+            // [Vos autres scripts]
+        });
+        document.addEventListener('DOMContentLoaded', function() {
+            const carouselInner = document.getElementById('carouselInner');
+            const prevBtn = document.querySelector('.carousel-nav.prev');
+            const nextBtn = document.querySelector('.carousel-nav.next');
+            const projectCards = document.querySelectorAll('.project-card');
+            
+            const cardStyle = window.getComputedStyle(projectCards[0]);
+            const cardWidth = projectCards[0].offsetWidth + 
+                            parseInt(cardStyle.marginLeft) + 
+                            parseInt(cardStyle.marginRight);
+            
+            let currentIndex = 0;
+            const maxIndex = projectCards.length - 3;
+            
+            function updateCarousel() {
+                carouselInner.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
+                
+                // Désactive les boutons aux extrémités
+                prevBtn.disabled = currentIndex === 0;
+                nextBtn.disabled = currentIndex >= maxIndex;
+            }
+            
+            prevBtn.addEventListener('click', function() {
+                if (currentIndex > 0) {
+                    currentIndex--;
+                    updateCarousel();
                 }
             });
-        })
-        
-        
-        document.querySelectorAll('.expertise-card').forEach(card => {
-            card.addEventListener('mouseenter', () => {
-                card.querySelector('.tech-icon').style.transform = 'rotate(10deg) scale(1.1)';
+            
+            nextBtn.addEventListener('click', function() {
+                if (currentIndex < maxIndex) {
+                    currentIndex++;
+                    updateCarousel();
+                }
             });
-            card.addEventListener('mouseleave', () => {
-                card.querySelector('.tech-icon').style.transform = 'rotate(0) scale(1)';
+            
+            // Initialisation
+            updateCarousel();
+            
+            // Adaptation au redimensionnement
+            window.addEventListener('resize', function() {
+                const newCardWidth = projectCards[0].offsetWidth + 
+                                   parseInt(cardStyle.marginLeft) + 
+                                   parseInt(cardStyle.marginRight);
+                const ratio = newCardWidth / cardWidth;
+                currentIndex = Math.round(currentIndex * ratio);
+                updateCarousel();
             });
         });
 
 
-        console.log('%cWelcome to my page! 👋', 'color: #818CF8; font-size: 16px;');
+        console.log('%cWelcome to my home! 👋', 'color: #818CF8; font-size: 16px;');
         console.log('%cSearching a talented dev ? Contact me', 'color: #FFFFFF;');
 
-        console.log('%cPS: Have you seen my cat ? Last time I saw her, she was checking my computer...', 'color: #818CF8; font-size: 13px;');
+        console.log('%cPS: Have you seen my cat ? She is in charge of emailing..', 'color: #818CF8; font-size: 13px;');
     </script>
 </body>
 </html>
