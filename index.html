@@ -13,9 +13,12 @@
             --text: #FFFFFF;
             --accent: #818CF8;
             --card-bg: rgba(15, 23, 42, 0.7);
-            
+            --github-dark: #1c2431;
+            --github-border: #30363D;
+            --github-highlight: #1F2937;
         }
-
+    
+        /* Base Styles */
         body {
             font-family: 'Space Grotesk', sans-serif;
             background-color: var(--dark-bg);
@@ -23,32 +26,72 @@
             margin: 0;
             padding: 0;
             line-height: 1.6;
+            overflow-x: hidden;
         }
-        .position{
+
+        body .section{
+            margin: 2% !important;;
+            padding: 2% !important;
+
+        }
+
+    
+        /* Utility Classes */
+        .flex {
             display: flex;
-         
+        }
+    
+        .flex-row {
+            flex-direction: row;
+        }
+    
+        .flex-col {
+            flex-direction: column;
+        }
+    
+        .m-2 {
+            margin: 0.5rem;
+        }
+    
+        .my-2 {
+            margin-top: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+    
+        .mx-5 {
+            margin-left: 1.25rem;
+            margin-right: 1.25rem;
+        }
+
+        .position{
+            margin: 2% 5%;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            align-items: center;
         }
 
         .hiddenCat{
-            position: relative;
-            z-index: 0;
-            padding-top: 2%;
-            margin: 5%;
-           
-        }
+            width: 40%;
 
+        }
+    
         /* Hero Section */
         .hero {
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            padding: 0 10%;
-            position: relative;
-            overflow: hidden;
-            z-index: 45;
-        }
 
+            margin: 2% 5%;
+            position: relative;
+            z-index: 10;
+        }
+     
+        .section{
+            margin: 2% 5%;
+        }
+    
         .hero::before {
             content: "";
             position: absolute;
@@ -60,144 +103,372 @@
             opacity: 0.1;
             z-index: -1;
         }
-
+    
         .hero h1 {
-            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-size: clamp(2rem, 5vw, 4rem);
             margin: 0;
             color: var(--text);
+            line-height: 1.2;
         }
-
+    
         .hero h2 {
-            font-size: clamp(1.5rem, 3vw, 2.5rem);
-            margin: 20px 0;
+            font-size: clamp(1.25rem, 3vw, 2rem);
+            margin: 1rem 0;
             font-weight: 400;
             color: var(--accent);
         }
-
+    
+        .hero h3, .hero p {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            margin: 0.5rem 0;
+        }
+    
         .cta-button {
             display: inline-block;
-            width: 40%;
-            
-            padding: 15px 30px;
+            width: auto;
+            max-width: 300px;
+            padding: 0.75rem 1.5rem;
             background: var(--cta);
             color: white;
             border: none;
             border-radius: 4px;
-            font-size: 1.1rem;
+            font-size: 1rem;
             text-decoration: none;
             transition: all 0.3s ease;
-            margin-top: 30px;
+            margin-top: 1.5rem;
             font-weight: 500;
             box-shadow: 0 4px 14px rgba(59, 13, 243, 0.4);
+            text-align: center;
         }
-
+    
         .cta-button:hover {
             background: #2A0AC7;
             transform: translateY(-3px);
             box-shadow: 0 6px 20px rgba(59, 13, 243, 0.6);
         }
-
-        /* Expertise Section */
-        .section {
-            padding: 100px 10%;
+    
+        /* GitHub-like Profile Section */
+        .github-profile {
+            background: var(--github-dark);
+            border: 1px solid var(--github-border);
+            border-radius: 6px;
+            margin: 3rem ;
+            padding: 1.5rem;
             position: relative;
+            z-index: 5;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+            width: 80%;
+            max-width: 1200px;
         }
-
-        .section-title {
-            font-size: 2.5rem;
+    
+        .profile-tabs {
+            display: flex;
+            border-bottom: 1px solid var(--github-border);
+            margin-bottom: 1rem;
+            overflow-x: auto;
+        }
+    
+        .tab {
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            font-size: 0.9rem;
             color: var(--text);
-            margin-bottom: 60px;
-            position: relative;
-            display: inline-block;
+            opacity: 0.7;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+    
+        .tab.active {
+            opacity: 1;
+            border-bottom-color: var(--cta);
+            font-weight: 500;
+        }
+    
+        .tab:hover {
+            opacity: 1;
+            background-color: rgba(110, 118, 129, 0.1);
+        }
+    
+        .profile-content {
+            display: none;
+        }
+    
+        .profile-content.active {
+            display: block;
+        }
+    
+        .icon {
+            width: 2.5rem;
+            height: 2.5rem;
+            transition: transform 0.3s ease;
         }
 
+
+    
+        .icon:hover {
+            transform: scale(1.1);
+        }
+
+        .tech-icon-img{
+            width: 80px;
+        }
+    
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+        }
+    
+        .stat-card {
+            background: var(--github-highlight);
+            border: 1px solid var(--github-border);
+            border-radius: 6px;
+            padding: 1rem;
+        }
+    
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 0.25rem;
+        }
+    
+        .stat-label {
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+
+        
+        /* Projects Carousel */
+        .projects-section {
+            position: relative;
+            padding: 0 5%;
+            margin: 3rem 0;
+        }
+    
+        .section-title {
+            font-size: 2rem;
+            color: var(--text);
+            margin-bottom: 2rem;
+            position: relative;
+        }
+    
         .section-title::after {
             content: "";
             position: absolute;
-            bottom: -10px;
+            bottom: -0.5rem;
             left: 0;
             width: 70%;
             height: 2px;
             background: var(--accent);
         }
+    
+    
+          /* CAROUSEL STYLES ONLY */
+    .projects-section {
+        position: relative;
+        padding: 0 5%;
+        margin: 3rem 0;
+        width: 100%;
+        box-sizing: border-box;
+    }
 
-        .expertise-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-        }
+    .carousel-container {
+        position: relative;
+        width: 90%;
+        overflow: hidden;
+        padding: 1rem 0;
+    }
 
-        .expertise-card {
-            background: var(--card-bg);
-            border: 1px solid rgba(129, 140, 248, 0.1);
-            border-radius: 8px;
-            padding: 30px;
-            transition: all 0.3s ease;
-        }
-
-        .expertise-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--accent);
-            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.5);
-        }
-
-        .expertise-card h3 {
-            color: var(--accent);
-            font-size: 1.5rem;
-            margin-top: 20px;
-        }
-
-        .expertise-card p {
-            color: var(--text);
-            opacity: 0.9;
-        }
-
-        .tech-icon {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
-            color: var(--accent);
-        }
-
-        /* Projects Section */
-        .projects-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 30px;
-            padding: 20px 0;
-        }
-
-        .more-project{
-            display: none;
-        }
-
+    .carousel-inner {
         
-        
-        .project-card-mini {
-            
-            width: 40%;
-            scroll-snap-align: start;
-            background: var(--card-bg);
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            border: 1px solid rgba(129, 140, 248, 0.1);
+        display: flex;
+        transition: transform 0.5s ease-in-out;
+        gap: 1.5rem;
+        width: max-content;
+    }
+
+    .project-card {
+        flex: 0 0 250px;
+        background: var(--card-bg);
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+        border: 1px solid rgba(129, 140, 248, 0.1);
+        scroll-snap-align: start;
+    }
+
+    .project-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        border-color: var(--accent);
+    }
+
+    .project-image {
+        height: 180px;
+        background: linear-gradient(135deg, #1E293B 0%, #0F172A 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--accent);
+        font-weight: bold;
+        background-size: cover;
+        background-position: center;
+    }
+
+    .project-details {
+        padding: 1.25rem;
+    }
+
+    .project-details h3 {
+        margin: 0 0 0.5rem 0;
+        color: var(--text);
+        font-size: 1.25rem;
+    }
+
+    .project-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .carousel-nav {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 2.5rem;
+        height: 2.5rem;
+        background: var(--cta);
+        border: none;
+        border-radius: 50%;
+        color: white;
+        font-size: 1rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+        opacity: 0.9;
+        border: none;
+        outline: none;
+    }
+
+    .carousel-nav:hover {
+        opacity: 1;
+        transform: translateY(-50%) scale(1.1);
+        background: #2A0AC7;
+    }
+
+    .carousel-nav:disabled {
+        opacity: 0.3;
+        cursor: not-allowed;
+        transform: translateY(-50%);
+    }
+
+    .carousel-nav.prev {
+        left: -1.25rem;
+    }
+
+    .carousel-nav.next {
+        right: -1.25rem;
+    }
+
+    .carousel-indicators {
+        display: flex;
+        justify-content: center;
+        gap: 0.5rem;
+        margin-top: 1.5rem;
+    }
+
+    .indicator {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--github-border);
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .indicator.active {
+        background: var(--cta);
+        transform: scale(1.2);
+    }
+
+    .project-card {
+            flex: 0 0 300px;
         }
 
-        
-
-        .tag {
-            background: rgba(59, 13, 243, 0.1);
-            color: var(--accent);
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            border: 1px solid rgba(129, 140, 248, 0.2);
+    /* Responsive Adjustments */
+    @media (max-width: 1024px) {
+        .section{
+            margin: 5%;
         }
+
+        .project-card {
+            flex: 0 0 280px;
+        }
+        
+        .carousel-nav.prev {
+            left: -0.5rem;
+        }
+        
+        .carousel-nav.next {
+            right: -0.5rem;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .section{
+            margin: 2%;
+        }
+        .projects-section {
+            padding: 0 3%;
+        }
+        
+        .project-card {
+            flex: 0 0 260px;
+        }
+        
+        .carousel-nav {
+            width: 2rem;
+            height: 2rem;
+        }
+        
+        .project-image {
+            height: 150px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .project-card {
+            flex: 0 0 240px;
+        }
+        
+        .carousel-nav {
+            width: 1.75rem;
+            height: 1.75rem;
+            font-size: 0.9rem;
+        }
+        
+        .carousel-nav.prev {
+            left: 0;
+        }
+        
+        .carousel-nav.next {
+            right: 0;
+        }
+    }
+
         .tech-stack {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-            gap: 15px;
-            margin-top: 30px;
+            gap: 20px;
+            margin-top: 40px;
         }
 
         .tech-item {
@@ -234,8 +505,40 @@
             margin-top: 0;
         }
 
-        /* Process Section */
-        .process-steps {
+        /* Expertise section */ 
+        .expertise-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .expertise-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(129, 140, 248, 0.1);
+            border-radius: 8px;
+            padding: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .expertise-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent);
+            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.5);
+        }
+
+        .expertise-card h3 {
+            color: var(--accent);
+            font-size: 1.5rem;
+            margin-top: 20px;
+        }
+
+        .expertise-card p {
+            color: var(--text);
+            opacity: 0.9;
+        }
+
+         /* Process Section */
+         .process-steps {
             display: flex;
             flex-direction: column;
             gap: 40px;
@@ -270,8 +573,13 @@
             border: 2px solid var(--accent);
         }
 
-        /* Contact Section */
-        #contact form {
+
+         /* Contact Section */
+        #contact{
+            width: 60%;
+        }
+
+         #contact form {
             display: flex;
             flex-direction: column;
             gap: 20px;
@@ -292,329 +600,175 @@
             min-height: 120px;
             resize: vertical;
         }
-        
-         /* Nouvelle section GitHub-like */
-         .github-profile {
-            background: var(--github-dark);
-            border: 1px solid var(--github-border);
-            border-radius: 6px;
-            margin: -50px 10% 80px;
-            padding: 20px;
-            position: relative;
-            z-index: 2;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-        }
 
-        .profile-tabs {
-            display: flex;
-            border-bottom: 1px solid var(--github-border);
-            margin-bottom: 20px;
+    
+   
+    
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            border-color: var(--accent);
         }
-
-        .tab {
-            padding: 8px 16px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            color: var(--text);
-            opacity: 0.7;
-            border-bottom: 2px solid transparent;
-            transition: all 0.2s ease;
-        }
-
-        .tab.active {
-            opacity: 1;
-            border-bottom-color: var(--cta);
-            font-weight: 500;
-        }
-
-        .tab:hover {
-            opacity: 1;
-            background-color: rgba(110, 118, 129, 0.1);
-        }
-
-        .profile-content {
-            display: none;
-        }
-
-        .profile-content.active {
-            display: block;
-        }
-
-        .tech-stack-compact {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 12px;
-        }
-
-        .tech-item-compact {
+    
+        .project-image {
+            height: 180px;
+            background: linear-gradient(135deg, #1E293B 0%, #0F172A 100%);
             display: flex;
             align-items: center;
-            padding: 8px 12px;
-            background: var(--github-highlight);
-            border-radius: 6px;
-            font-size: 0.9rem;
-        }
-
-        .tech-item-compact img {
-            width: 20px;
-            height: 20px;
-            margin-right: 10px;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-        }
-
-        .stat-card {
-            background: var(--github-highlight);
-            border: 1px solid var(--github-border);
-            border-radius: 6px;
-            padding: 15px;
-        }
-
-        .stat-value {
-            font-size: 1.5rem;
-            font-weight: 700;
+            justify-content: center;
             color: var(--accent);
-            margin-bottom: 5px;
+            font-weight: bold;
+            background-size: cover;
+            background-position: center;
         }
-
-        .stat-label {
-            font-size: 0.8rem;
-            opacity: 0.8;
+    
+        .imagineres {
+            background-image: url("assets/imagineres.png");
         }
-
-        @media (max-width: 768px) {
+    
+        .realestate {
+            background-image: url("assets/homepage.jpeg");
+        }
+    
+        .saverdun {
+            background-image: url("assets/saverdun.png");
+        }
+    
+        .project-details {
+            padding: 1.25rem;
+        }
+    
+        .project-details h3 {
+            margin: 0 0 0.5rem 0;
+            color: var(--text);
+            font-size: 1.25rem;
+        }
+    
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+    
+        .tag {
+            background: rgba(59, 13, 243, 0.1);
+            color: var(--accent);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            border: 1px solid rgba(129, 140, 248, 0.2);
+        }
+    
+        .carousel-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 2.5rem;
+            height: 2.5rem;
+            background: var(--cta);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            opacity: 0.9;
+        }
+    
+        .carousel-nav:hover {
+            opacity: 1;
+            transform: translateY(-50%) scale(1.1);
+            background: #2A0AC7;
+        }
+    
+        .carousel-nav:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            transform: translateY(-50%);
+        }
+    
+        .carousel-nav.prev {
+            left: 0;
+        }
+    
+        .carousel-nav.next {
+            right: 0;
+        }
+    
+        /* Responsive Adjustments */
+        @media (max-width: 1024px) {
             .github-profile {
-                margin: -30px 5% 50px;
-            }
-            
-            .stats-grid {
-                grid-template-columns: 1fr;
+                width: 90%;
+                margin: 2rem;
             }
         }
-
-        /* Responsive */
+    
         @media (max-width: 768px) {
-            .hero, .section {
-                padding: 40px 5%;
+            .section{
+            margin: 2%;
+        }
+        body{
+            margin: 5%;
+        }
+            .hero {
+                padding: 0 5%;
+                min-height: 90vh;
             }
-            
-           
+    
+            .github-profile {
+                width: 80%;
+                margin: 1.5rem;
+                padding: 1rem;
+            }
+    
+            .carousel-nav {
+                width: 2rem;
+                height: 2rem;
+                font-size: 0.9rem;
+            }
+    
+            .project-image {
+                height: 150px;
+            }
+
             .hiddenCat{
                 display: none;
-              
             }
-            .expertise-grid {
-                grid-template-columns: 1fr;
+        }
+    
+        @media (max-width: 480px) {
+
+            .hero h1 {
+                font-size: 2rem;
             }
-
-            .cta-button{
-                width: auto;
+    
+            .hero h2 {
+                font-size: 1.25rem;
             }
-            
-           
-            .project-card-mini {
-            
-            width: 90%;
-            
+    
+            .cta-button {
+                width: 100%;
+                max-width: none;
+            }
+    
+            .profile-tabs {
+                font-size: 0.8rem;
+            }
+    
+            .tab {
+                padding: 0.5rem;
+            }
+    
+            .project-card {
+                flex: 0 0 calc(100% - 1rem);
+            }
         }
-        }
-         /* Conteneur principal du carrousel */
-    .projects-section {
-        position: relative;
-        padding: 0 5%;
-        margin: 60px 0;
-    }
-
-    /* Conteneur du carrousel avec masquage du débordement */
-    .carousel-container {
-        position: relative;
-        overflow: hidden;
-        width: 100%;
-        padding: 20px 0;
-    }
-
-    /* Conteneur interne des cartes (élément qui se déplace) */
-    .carousel-inner {
-        display: flex;
-        transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        gap: 30px;
-        width: max-content; /* Permet le défilement horizontal */
-        will-change: transform; /* Optimisation des performances */
-    }
-
-    /* Style des cartes de projet */
-    .project-card {
-        flex: 0 0 300px; /* Largeur fixe pour chaque carte */
-        background: var(--card-bg);
-        border-radius: 8px;
-        overflow: hidden;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        transition: all 0.3s ease;
-        border: 1px solid rgba(129, 140, 248, 0.1);
-    }
-
-    .project-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-        border-color: var(--accent);
-    }
-
-    /* Image du projet */
-    .project-image {
-        height: 180px;
-        background: linear-gradient(135deg, #1E293B 0%, #0F172A 100%);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: var(--accent);
-        font-weight: bold;
-    }
-
-    .imagineres{
-        height: 180px;
-        background-image: url("assets/imagineres.png");
- 
-        background-position: center;
-        background-size: cover;
-    }
-    .realestate{
-        height: 180px;
-        background-image: url("assets/homepage.jpeg");
-        background-position: top;
-        background-size: cover;
-
-
-    }
-    .saverdun{
-        height: 180px;
-        background-image: url("assets/saverdun.png");
-        background-position: center;
-        background-size: cover;
-    }
-
-    /* Détails du projet */
-    .project-details {
-        padding: 20px;
-    }
-
-    .project-details h3 {
-        margin: 0 0 10px 0;
-        color: var(--text);
-        font-size: 1.2rem;
-    }
-
-    /* Tags technologies */
-    .project-tags {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-        margin-bottom: 15px;
-    }
-
-    .tag {
-        background: rgba(59, 13, 243, 0.1);
-        color: var(--accent);
-        padding: 4px 12px;
-        border-radius: 20px;
-        font-size: 0.75rem;
-        border: 1px solid rgba(129, 140, 248, 0.2);
-    }
-
-    /* Boutons de navigation */
-    .carousel-nav {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 40px;
-        height: 40px;
-        background: var(--cta);
-        border: none;
-        border-radius: 50%;
-        color: white;
-        font-size: 1rem;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 10;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-        transition: all 0.3s ease;
-        opacity: 0.9;
-    }
-
-    .carousel-nav:hover {
-        opacity: 1;
-        transform: translateY(-50%) scale(1.1);
-        background: #2A0AC7;
-    }
-
-    .carousel-nav:disabled {
-        opacity: 0.3;
-        cursor: not-allowed;
-        transform: translateY(-50%);
-    }
-
-    .carousel-nav.prev {
-        left: 10px;
-    }
-
-    .carousel-nav.next {
-        right: 10px;
-    }
-
-    /* Indicateurs de position (optionnel) */
-    .carousel-indicators {
-        display: flex;
-        justify-content: center;
-        gap: 8px;
-        margin-top: 20px;
-    }
-
-    .indicator {
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;
-        background: var(--github-border);
-        cursor: pointer;
-        transition: all 0.3s ease;
-    }
-
-    .indicator.active {
-        background: var(--cta);
-        transform: scale(1.2);
-    }
-
-    /* Responsive Design */
-    @media (max-width: 1024px) {
-        
-    }
-
-    @media (max-width: 768px) {
-        .projects-section {
-            padding: 0 3%;
-        }
-
-      
-
-        .carousel-nav {
-            width: 35px;
-            height: 35px;
-        }
-
-        .carousel-nav.prev {
-            left: 15px;
-        }
-
-        .carousel-nav.next {
-            right: 15px;
-        }
-    }
-
- 
     </style>
 </head>
 <body>
@@ -641,7 +795,19 @@
 
         <div id="contact" class="profile-content active">
             <h3 style="margin-top: 0; color: var(--accent);">My links</h3>
-         
+            <div class="flex flex-row">
+                <div class="m-2" >
+                    <a href="https://github.com/mdlnvere">
+                        <img src="assets/github-mark-white.png" class="icon m-2" />
+                    </a>
+                </div>
+                <div class="m-2">
+                    <a href="www.linkedin.com/in/anne-sophie-vere">
+                        <img src="assets/linkedin-logo.png" class="icon m-2" />
+                    </a>
+                </div>
+            </div>
+            
         </div>
 
         <div id="stats" class="profile-content">
@@ -832,6 +998,7 @@
             </div>
             <button class="carousel-nav next" aria-label="Projets suivants">→</button>
         </div>
+        
         <div class="carousel-indicators" id="carouselIndicators">
             <!-- Généré dynamiquement en JS -->
         </div>
@@ -863,23 +1030,97 @@
     <!-- Contact Section -->
     <div class="position">
 
-    <section id="contact" class="section">
-        <h2 class="section-title">Let's work together !</h2>
-        <form>
-            <input type="text" placeholder="Votre nom" required>
-            <input type="email" placeholder="Votre email" required>
-            <textarea placeholder="Décrivez votre projet..." rows="5" required></textarea>
-            <button type="submit" class="cta-button">Send</button>
-        </form>
-        <p style="margin-top: 20px;">Or contact me : vereannesophie@gmail.com</p>
-    </section>
+        <section id="contact" class="section">
+            <h2 class="section-title">Let's work together !</h2>
+            <form>
+                <input type="text" placeholder="Votre nom" required>
+                <input type="email" placeholder="Votre email" required>
+                <textarea placeholder="Décrivez votre projet..." rows="5" required></textarea>
+                <button type="submit" class="cta-button">Send</button>
+            </form>
+            <p style="margin-top: 5rem;">Or contact me : vereannesophie@gmail.com</p>
+        </section>
 
-    <div class="hiddenCat">
-        <canvas data-processing-sources="processing.pde"></canvas>
-    </div>
+        <div class="hiddenCat">
+            <canvas data-processing-sources="processing.pde"></canvas>
+        </div>
     </div>
     <script>
-          document.addEventListener('DOMContentLoaded', function() {
+      document.addEventListener('DOMContentLoaded', function() {
+            const carousel = document.querySelector('.carousel-inner');
+            const prevBtn = document.querySelector('.carousel-nav.prev');
+            const nextBtn = document.querySelector('.carousel-nav.next');
+            const projectCards = document.querySelectorAll('.project-card');
+            const indicatorsContainer = document.querySelector('.carousel-indicators');
+            
+            // Create indicators
+            projectCards.forEach((_, index) => {
+                const indicator = document.createElement('div');
+                indicator.classList.add('indicator');
+                if(index === 0) indicator.classList.add('active');
+                indicator.addEventListener('click', () => goToSlide(index));
+                indicatorsContainer.appendChild(indicator);
+            });
+            
+            let currentIndex = 0;
+            const cardWidth = projectCards[0].offsetWidth + 
+                            parseInt(window.getComputedStyle(projectCards[0]).marginRight);
+            
+            function updateCarousel() {
+                carousel.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
+                
+                // Update indicators
+                document.querySelectorAll('.indicator').forEach((ind, index) => {
+                    ind.classList.toggle('active', index === currentIndex);
+                });
+                
+                // Update button states
+                prevBtn.disabled = currentIndex === 0;
+                nextBtn.disabled = currentIndex >= projectCards.length - getVisibleCards();
+            }
+            
+            function getVisibleCards() {
+                if(window.innerWidth >= 1024) return 3;
+                if(window.innerWidth >= 768) return 2;
+                return 1;
+            }
+            
+            function goToSlide(index) {
+                currentIndex = index;
+                updateCarousel();
+            }
+            
+            prevBtn.addEventListener('click', () => {
+                if(currentIndex > 0) {
+                    currentIndex--;
+                    updateCarousel();
+                }
+            });
+            
+            nextBtn.addEventListener('click', () => {
+                if(currentIndex < projectCards.length - getVisibleCards()) {
+                    currentIndex++;
+                    updateCarousel();
+                }
+            });
+            
+            // Handle window resize
+            let resizeTimer;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(() => {
+                    const newCardWidth = projectCards[0].offsetWidth + 
+                                    parseInt(window.getComputedStyle(projectCards[0]).marginRight);
+                    const ratio = cardWidth / newCardWidth;
+                    currentIndex = Math.round(currentIndex * ratio);
+                    updateCarousel();
+                }, 250);
+            });
+            
+            // Initialize
+            updateCarousel();
+        });
+        document.addEventListener('DOMContentLoaded', function() {
             const tabs = document.querySelectorAll('.tab');
             
             tabs.forEach(tab => {
@@ -894,58 +1135,9 @@
                     document.getElementById(tabId).classList.add('active');
                 });
             });
-            
-            // [Vos autres scripts]
+
         });
-        document.addEventListener('DOMContentLoaded', function() {
-            const carouselInner = document.getElementById('carouselInner');
-            const prevBtn = document.querySelector('.carousel-nav.prev');
-            const nextBtn = document.querySelector('.carousel-nav.next');
-            const projectCards = document.querySelectorAll('.project-card');
-            
-            const cardStyle = window.getComputedStyle(projectCards[0]);
-            const cardWidth = projectCards[0].offsetWidth + 
-                            parseInt(cardStyle.marginLeft) + 
-                            parseInt(cardStyle.marginRight);
-            
-            let currentIndex = 0;
-            const maxIndex = projectCards.length - 3;
-            
-            function updateCarousel() {
-                carouselInner.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
-                
-                // Désactive les boutons aux extrémités
-                prevBtn.disabled = currentIndex === 0;
-                nextBtn.disabled = currentIndex >= maxIndex;
-            }
-            
-            prevBtn.addEventListener('click', function() {
-                if (currentIndex > 0) {
-                    currentIndex--;
-                    updateCarousel();
-                }
-            });
-            
-            nextBtn.addEventListener('click', function() {
-                if (currentIndex < maxIndex) {
-                    currentIndex++;
-                    updateCarousel();
-                }
-            });
-            
-            // Initialisation
-            updateCarousel();
-            
-            // Adaptation au redimensionnement
-            window.addEventListener('resize', function() {
-                const newCardWidth = projectCards[0].offsetWidth + 
-                                   parseInt(cardStyle.marginLeft) + 
-                                   parseInt(cardStyle.marginRight);
-                const ratio = newCardWidth / cardWidth;
-                currentIndex = Math.round(currentIndex * ratio);
-                updateCarousel();
-            });
-        });
+
 
 
         console.log('%cWelcome to my home! 👋', 'color: #818CF8; font-size: 16px;');
